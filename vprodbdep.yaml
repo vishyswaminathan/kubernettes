@@ -1,4 +1,4 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vprodb
@@ -6,7 +6,7 @@ metadata:
     app: vprodb
 spec:
   selector:
-    matchlabels:
+    matchLabels:
       app: vprodb
   replicas: 1
   template:
@@ -33,11 +33,11 @@ spec:
         zone: ap-southeast-1a
       volumes:
         - name: vpro-db-data
-          awsElasticBlockstore:
-           volumeID: vol-0d81e11943940eca2
-           fsType: ext4
+          awsElasticBlockStore:
+            volumeID: vol-0d81e11943940eca2
+            fsType: ext4
 
-      initiContainers:
+      initContainers:
         - name: busybox
           image: busybox :latest
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
